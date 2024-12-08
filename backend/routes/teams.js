@@ -47,6 +47,36 @@ router.get('/names', async (req, res) => {
 });
 
 
+
+
+// 🟢 GET /teams/search - Search teams by name
+router.get('/search', async (req, res) => {
+  const { query } = req.query; // Get search query from the request (from frontend)
+
+  if (!query) {
+      return res.status(400).json({ message: "Search query is required." });
+  }
+
+  try {
+      // Find teams that match the search query (case-insensitive)
+      const teams = await Team.find({
+          teamName: { $regex: query, $options: 'i' }, // 'i' makes it case-insensitive
+      });
+
+      if (teams.length === 0) {
+          return res.status(404).json({ message: "No teams found" });
+      }
+
+      res.status(200).json({ teams }); // Return matching teams
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error searching for teams" });
+  }
+});
+
+
+
+
 // 🟢 GET /teams/:id - Get a specific team by ID with players
 router.get('/:id', async (req, res) => {
     try {
@@ -60,6 +90,11 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: "Error fetching team." });
     }
 });
+
+
+
+
+
 
 
 module.exports = router;

@@ -2,7 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const teamsRoute = require('./routes/teams'); // Import the teams route
+const teamsRoute = require('./routes/teams');
+const Team = require('./models/team'); // Import the teams route
 
 const app = express();
 
