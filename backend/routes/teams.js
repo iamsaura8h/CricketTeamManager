@@ -46,4 +46,20 @@ router.get('/names', async (req, res) => {
   }
 });
 
+
+// 🟢 GET /teams/:id - Get a specific team by ID with players
+router.get('/:id', async (req, res) => {
+    try {
+        const team = await Team.findById(req.params.id);
+        if (!team) {
+            return res.status(404).json({ message: "Team not found." });
+        }
+        res.status(200).json(team); // Send the full team details including players
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error fetching team." });
+    }
+});
+
+
 module.exports = router;
