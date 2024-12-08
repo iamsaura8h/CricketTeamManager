@@ -5,39 +5,35 @@ function CreateTeamForm() {
   const [teamName, setTeamName] = useState('');
   const [players, setPlayers] = useState([{ name: '', role: '' }]);
 
-  // Handle changes in team name input
   const handleTeamNameChange = (e) => setTeamName(e.target.value);
 
-  // Handle changes in player inputs
   const handlePlayerChange = (index, e) => {
     const updatedPlayers = [...players];
     updatedPlayers[index][e.target.name] = e.target.value;
     setPlayers(updatedPlayers);
   };
 
-  // Handle add player input field
   const addPlayer = () => {
     setPlayers([...players, { name: '', role: '' }]);
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Prepare the data to be sent to the backend
     const teamData = {
       teamName,
       players,
     };
 
     try {
-      // Send a POST request to the backend
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/teams`, teamData);
-      console.log(response.data.message); // Log the success message
-      alert('Team created successfully!'); // Show an alert on success
+      console.log(response.data.message);
+      alert('Team created successfully!');
+      setTeamName('');
+      setPlayers([{ name: '', role: '' }]); // Reset the form after success
     } catch (error) {
-      console.error('Error creating team:', error); // Log the error
-      alert('Failed to create team!'); // Show an alert on failure
+      console.error('Error creating team:', error);
+      alert('Failed to create team!');
     }
   };
 
@@ -46,9 +42,7 @@ function CreateTeamForm() {
       <h2 className="text-xl font-bold mb-4">Create a New Cricket Team</h2>
 
       <div className="mb-4">
-        <label htmlFor="teamName" className="block text-sm font-medium text-gray-700">
-          Team Name
-        </label>
+        <label htmlFor="teamName" className="block text-sm font-medium text-gray-700">Team Name</label>
         <input
           type="text"
           id="teamName"

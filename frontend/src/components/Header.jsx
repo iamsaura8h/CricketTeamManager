@@ -1,9 +1,12 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Header() {
   return (
-    <header className="bg-blue-600 p-4 text-white text-center">
-      <h1 className="text-2xl font-bold">Cricket Team Manager</h1>
+    <header className="p-4 bg-blue-600 text-white">
+      <nav>
+        <Link to="/create-team" className="mr-4">Create Team</Link>
+        <Link to="/display-team">Display Teams</Link>
+      </nav>
     </header>
   );
 }
