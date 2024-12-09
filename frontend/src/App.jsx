@@ -5,6 +5,7 @@ import CreateTeamForm from './components/CreateTeamForm';
 import TeamList from './components/TeamList';
 import SearchTeam from './components/SearchTeam';
 import EditTeam from './components/EditTeam';
+import DeleteTeam from './components/DeleteTeam';
 
 function App() {
   return (
@@ -18,7 +19,9 @@ function App() {
           <Route path="/create-team" element={<CreateTeamForm />} /> {/* Route for creating teams */}
           <Route path="/display-team" element={<TeamList />} /> {/* Route for displaying teams */}
           <Route path="/search-team" element={<SearchTeam />} /> {/* Route for searching teams */}
-          <Route path="/edit-team" element={<EditTeam/>} /> {/* Route for searching teams */}
+          <Route path="/edit-team" element={<EditTeam/>} /> {/* Route for editing teams */}
+          <Route path="/delete-team" element={<DeleteTeam/>} /> {/* Route for deleting teams */}
+
         </Routes>
       </div>
     </Router>

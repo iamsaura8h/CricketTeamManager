@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Team = require('../models/team'); // Import the Team model
 
+
 // 🟢 POST /teams - Create a new team
 router.post('/', async (req, res) => {
   const { teamName, players } = req.body;
@@ -10,6 +11,14 @@ router.post('/', async (req, res) => {
     return res.status(400).json({ message: "Team name and players are required." });
   }
 
+  // Check if the team already exists (case-insensitive)
+  const existingTeam = await Team.findOne({ teamName: new RegExp(`^${teamName}$`, 'i') });
+  
+  if (existingTeam) {
+    return res.status(400).json({ message: `Team name '${teamName}' is already taken.` });
+  }
+
+  // Create a new team if not already exists
   const newTeam = new Team({
     teamName,
     players
@@ -19,10 +28,14 @@ router.post('/', async (req, res) => {
     await newTeam.save();
     res.status(201).json({ message: "✅ Team created successfully!", team: newTeam });
   } catch (error) {
-    console.error('❌ Error creating team:', error);
-    res.status(500).json({ message: "Error creating team." });
+    console.error('❌ Error creating team:', error); // Log the error to the console
+    res.status(500).json({ message: "Error creating team.", error: error.message });
   }
 });
+
+
+
+
 
 // 🟢 GET /teams - Get all teams (with players)
 router.get('/', async (req, res) => {
@@ -45,6 +58,30 @@ router.get('/names', async (req, res) => {
     res.status(500).json({ message: "Error fetching team names." });
   }
 });
+
+
+// 🟢 DELETE /teams/:teamName - Delete a team by team name
+router.delete('/:teamName', async (req, res) => {
+  const { teamName } = req.params;
+
+  try {
+    // Find the team by the provided team name (case-insensitive search)
+    const team = await Team.findOneAndDelete({ teamName: new RegExp(`^${teamName}$`, 'i') });
+
+    if (!team) {
+      return res.status(404).json({ message: "Team not found." });
+    }
+
+    res.status(200).json({ message: "✅ Team deleted successfully!" });
+  } catch (error) {
+    console.error('❌ Error deleting team:', error);
+    res.status(500).json({ message: "Error deleting team." });
+  }
+});
+
+
+
+
 
 // 🟢 GET /teams/search - Search teams by name
 router.get('/search', async (req, res) => {

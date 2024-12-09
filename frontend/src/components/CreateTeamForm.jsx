@@ -4,6 +4,7 @@ import axios from 'axios'; // Import Axios for HTTP requests
 function CreateTeamForm() {
   const [teamName, setTeamName] = useState('');
   const [players, setPlayers] = useState([{ name: '', role: '' }]);
+  const [errorMessage, setErrorMessage] = useState(''); // State to store error message
 
   const handleTeamNameChange = (e) => setTeamName(e.target.value);
 
@@ -31,15 +32,23 @@ function CreateTeamForm() {
       alert('Team created successfully!');
       setTeamName('');
       setPlayers([{ name: '', role: '' }]); // Reset the form after success
+      setErrorMessage(''); // Clear any previous error message
     } catch (error) {
       console.error('Error creating team:', error);
-      alert('Failed to create team!');
+      if (error.response && error.response.status === 400) {
+        setErrorMessage(error.response.data.message); // Set error message if team name exists
+      } else {
+        setErrorMessage('Failed to create team!'); // Default error message
+      }
     }
   };
 
   return (
     <form className="max-w-lg mx-auto p-4 bg-white shadow-md rounded-lg" onSubmit={handleSubmit}>
       <h2 className="text-xl font-bold mb-4">Create a New Cricket Team</h2>
+
+      {/* Error message display */}
+      {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
 
       <div className="mb-4">
         <label htmlFor="teamName" className="block text-sm font-medium text-gray-700">Team Name</label>

@@ -7,7 +7,8 @@ function Header() {
         <Link to="/create-team" className="mr-4">Create Team</Link>
         <Link to="/display-team" className="mr-4">Display Teams</Link>
         <Link to="/search-team" className='mr-4'>Search Teams</Link>
-        <Link to="/edit-team">Edit Team</Link>
+        <Link to="/edit-team" className='mr-4'>Edit Team</Link>
+        <Link to="/delete-team" >Delete Teams</Link>
       </nav>
     </header>
   );
