@@ -47,17 +47,18 @@ function TeamList() {
       {teams.length > 0 ? (
         <ul>
           {teams.map((team, index) => (
-            <li key={index} className="py-2">
+            <li key={index} >
               <button
                 onClick={() => handleTeamClick(team._id)}
-                className="text-blue-500 hover:underline"
+                // className="text-blue-500 hover:underline"
+                className="w-full text-left p-2 hover:bg-gray-100 border mb-1 rounded"
               >
                 {team.teamName}
               </button>
               {/* Conditionally display the team details */}
               {selectedTeamId === team._id && teamDetails && (
                 <div className="mt-4 p-4 border rounded bg-gray-100">
-                  <h3 className="text-xl font-bold">Players</h3>
+                  <h3 className="text-xl font-bold">Squad</h3>
                   {teamDetails.players.length > 0 ? (
                     <table className="min-w-full table-auto mt-2">
                       <thead>

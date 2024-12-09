@@ -11,8 +11,8 @@ function App() {
     <Router> {/* Wrap the app in Router */}
       <div className="bg-gray-100 min-h-screen">
         <Header />
-        <div className="flex justify-center items-center p-10">
-          <h1 className="text-4xl font-bold text-blue-600">Cricket Team Manager</h1>
+        <div className="flex justify-center items-center p-8">
+          <h1 className="text-6xl font-dancing font-bold text-blue-600">Cricket Team Manager</h1>
         </div>
         <Routes>
           <Route path="/create-team" element={<CreateTeamForm />} /> {/* Route for creating teams */}
