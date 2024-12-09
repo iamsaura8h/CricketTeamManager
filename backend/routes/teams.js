@@ -46,9 +46,6 @@ router.get('/names', async (req, res) => {
   }
 });
 
-
-
-
 // 🟢 GET /teams/search - Search teams by name
 router.get('/search', async (req, res) => {
   const { query } = req.query; // Get search query from the request (from frontend)
@@ -74,8 +71,34 @@ router.get('/search', async (req, res) => {
   }
 });
 
+// 🟢 PUT /teams/:id - Update a team by ID (CORRECTED ROUTE)
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { teamName, players } = req.body;
 
+    // Validate input
+    if (!teamName || !players || players.length === 0) {
+      return res.status(400).json({ message: "Team name and players are required" });
+    }
 
+    // Update the team in the database
+    const updatedTeam = await Team.findByIdAndUpdate(
+      id, 
+      { teamName, players }, 
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedTeam) {
+      return res.status(404).json({ message: "Team not found" });
+    }
+
+    res.status(200).json(updatedTeam);
+  } catch (error) {
+    console.error('❌ Error updating team details:', error);
+    res.status(500).json({ message: "Error updating team details" });
+  }
+});
 
 // 🟢 GET /teams/:id - Get a specific team by ID with players
 router.get('/:id', async (req, res) => {
@@ -90,11 +113,5 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: "Error fetching team." });
     }
 });
-
-
-
-
-
-
 
 module.exports = router;
