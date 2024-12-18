@@ -1,6 +1,9 @@
 
 # Cricket Team Manager
 
+![image](https://github.com/user-attachments/assets/69f777b3-857c-4a7d-8d8c-e0a29751c59a)
+
+
 A full-stack web application built using the MERN stack (MongoDB, Express.js, React.js, Node.js) to manage cricket teams. The application allows users to create, view, update, search, and delete teams.
 
 ## Features
