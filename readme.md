@@ -1,5 +1,5 @@
 
-# Cricket Team Manager
+# Cricket Team Manager 🏏
 
 ![image](https://github.com/user-attachments/assets/69f777b3-857c-4a7d-8d8c-e0a29751c59a)
 
