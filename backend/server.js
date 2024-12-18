@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 // Set up teams routes under /teams
 app.use('/teams', teamsRoute);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000 || 'https://cricketteammanager-frontend.onrender.com';
 app.listen(port, () => {
   console.log(`🚀 Server is running on port ${port}`);
 });
