@@ -14,7 +14,9 @@ function App() {
       <div className="bg-gray-100 min-h-screen">
         <Header />
         <div className="flex justify-center items-center py-8">
-          <h1 className="text-6xl font-dancing font-bold text-blue-600">Cricket Team Manager</h1>
+          <a href="/">
+            <h1 className="text-6xl font-dancing font-bold text-center text-blue-600">Cricket Team Manager</h1>
+          </a>
         </div>
         <Routes>
           <Route path="/" element={<HomePage />} /> {/* Route for homepage */}
