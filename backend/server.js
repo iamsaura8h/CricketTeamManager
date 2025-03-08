@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: '.env.local' });
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -11,6 +11,7 @@ const app = express();
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // Parse incoming JSON requests
 
+console.log("Database URL:", process.env.DB_URL);
 // Connect to MongoDB using the connection string from the .env file
 mongoose.connect(process.env.DB_URL, {
   useNewUrlParser: true,
